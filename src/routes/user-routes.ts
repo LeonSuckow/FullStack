@@ -1,27 +1,15 @@
 import express from "express";
+import userController from "../users/users-controller";
 
 const routes = express.Router();
 
-const users = [
-  { name: "LipinhoFire", idade: 39 },
-  { name: "ColomboFire", idade: 57 },
-  { name: "LeonFire", idade: 29 },
-  { name: "FalshionFire", idade: 34 },
-];
+routes.get("/users", userController.getUsers);
 
-routes.get("/user", (request, response) => {
-  response.send(users);
-});
+routes.get("/users/:id", userController.getUserById);
 
-routes.post("/user", (request, response) => {
-  const { name, idade } = request.body;
+routes.post("/users", userController.createUser);
 
-  const newUser = { name, idade };
-  users.push(newUser);
-  response.sendStatus(200).send(newUser);
-});
-
-routes.delete("/user/:id", (reuqest, response) => {});
+routes.delete("/users/:id", userController.deleteUser);
 
 const userRouter = { routes };
 
