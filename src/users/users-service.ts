@@ -11,6 +11,11 @@ class UserService {
   };
 
   deleteUser = (id: number) => {
+    const user = this.getUserById(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     userRepository.deleteUser(id);
   };
   getUserById = (id: number) => {
