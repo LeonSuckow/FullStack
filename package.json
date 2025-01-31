@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "execute": "node src/server.js"
+    "clean": "rimraf dist",
+    "build": "npx tsc",
+    "start": "node dist/server.js",
+    "exec": "npm run clean && npm run build && npm start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
   }
 }
