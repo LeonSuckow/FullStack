@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 import userRepository from "./user-reposityory";
 
 class UserService {
@@ -13,7 +14,7 @@ class UserService {
   deleteUser = (id: number) => {
     const user = this.getUserById(id);
     if (!user) {
-      throw new Error("User not found");
+      throw new ResourceNotFoundError();
     }
 
     userRepository.deleteUser(id);
