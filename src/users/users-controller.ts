@@ -1,23 +1,30 @@
-const users = [
-  { name: "LipinhoFire", idade: 39 },
-  { name: "ColomboFire", idade: 57 },
-  { name: "LeonFire", idade: 29 },
-  { name: "FalshionFire", idade: 34 },
-];
+import { Request, Response } from "express";
+import userService from "./users-service";
 
 class UserController {
-  getUsers = (request, response) => {
+  getUsers = (request: Request, response: Response) => {
+    const users = userService.getUsers();
     response.send(users);
   };
-  createUser = (request, response) => {
+  createUser = (request: Request, response: Response) => {
+    console.log(request.body);
     const { name, idade } = request.body;
-
     const newUser = { name, idade };
-    users.push(newUser);
-    response.sendStatus(200).send(newUser);
+    const savedUser = userService.createUsers(newUser);
+
+    response.sendStatus(201).send(savedUser);
   };
-  deleteUser = (reuqest, response) => {};
-  getUserById = (reuqest, response) => {};
+  deleteUser = (request: Request, response: Response) => {
+    const { id } = request.params;
+    userService.deleteUser(parseInt(id));
+    response.sendStatus(200);
+  };
+  getUserById = (request: Request, response: Response) => {
+    const { id } = request.params;
+    const user = userService.getUserById(Number(id));
+
+    response.sendStatus(200).send(user);
+  };
 }
 const userController = new UserController();
 
