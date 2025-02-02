@@ -1,5 +1,24 @@
 import {DataSource} from "typeorm";
 
+const environment = process.env.NODE_ENV
+
+const migrationPropertiesMap = {
+    development: {
+        entities: [
+            "src/**/*entity{.ts,.js}"
+        ],
+        migrations: ["src/migrations/*{.ts,.js}"]
+    },
+    default: {
+        entities: [
+            "dist/**/*entity{.ts,.js}",
+        ],
+        migrations: ["migrations/*{.ts,.js}"]
+    }
+}
+
+const migrationProperties = environment === 'development' ? migrationPropertiesMap.development : migrationPropertiesMap.default
+
 export const myDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
@@ -7,11 +26,7 @@ export const myDataSource = new DataSource({
     username: "root",
     password: "root_password",
     database: "db",
-    entities: [
-        "dist/**/*entity{.ts,.js}",
-        "src/**/*entity{.ts,.js}"
-    ],
-    migrations: ["migrations/*{.ts,.js}"],
+    ...migrationProperties,
     migrationsRun: true,
     logging: true,
     synchronize: false,
