@@ -1,4 +1,4 @@
-import { myDataSource } from "../datasource";
+import { myDataSource } from "../../datasource";
 import { User } from "./user-entity";
 
 class UserRepository {

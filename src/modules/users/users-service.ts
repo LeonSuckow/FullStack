@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../../errors/resource-not-found-error";
 import userRepository from "./user-repository";
 
 class UserService {

@@ -1,5 +1,5 @@
 import express from "express";
-import userRouter from "./routes/user-routes";
+import userRouter from "./modules/users/user-routes";
 import { ErrorMiddleware } from "./utils/express/error-middleware";
 import { RequestMiddleware } from "./utils/express/request-middleware";
 import { myDataSource } from "./datasource";
