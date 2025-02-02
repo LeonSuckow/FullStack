@@ -1,7 +1,7 @@
 import { ApplicationError } from "../../errors/application-error";
 
-export const ErrorHandler = (err, req, res, next) => {
-  console.error("Erro capturado pelo middleware:", err);
+export const ErrorMiddleware = (err, req, res, next) => {
+  console.log(err.message);
 
   if (!(err instanceof ApplicationError)) {
     return res.status(500).json({ error: "Erro interno no servidor" });
