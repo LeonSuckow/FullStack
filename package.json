@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
     "build": "npx tsc",
-    "start": "node dist/server.js",
-    "exec": "npm run clean && npm run build && npm start",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "exec": "cross-env NODE_ENV=production npm run clean && npm run build && npm start",
     "dev": "cross-env NODE_ENV=development ts-node src/server.ts",
     "migration:create": "node scripts/migration-create.js"
   },

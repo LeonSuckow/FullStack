@@ -9,7 +9,7 @@ const migrationPropertiesMap = {
         ],
         migrations: ["src/migrations/*{.ts,.js}"]
     },
-    default: {
+    production: {
         entities: [
             "dist/**/*entity{.ts,.js}",
         ],
@@ -17,7 +17,11 @@ const migrationPropertiesMap = {
     }
 }
 
-const migrationProperties = environment === 'development' ? migrationPropertiesMap.development : migrationPropertiesMap.default
+if (!(environment in migrationPropertiesMap)) {
+    throw new Error(`Incorrect environment! Informed: ${environment}, valid: ${Object.keys(migrationPropertiesMap)}`)
+}
+
+const migrationProperties = migrationPropertiesMap[environment]
 
 export const myDataSource = new DataSource({
     type: "mysql",
