@@ -2,25 +2,25 @@ import { Request, Response } from "express";
 import userService from "./users-service";
 
 class UserController {
-  getUsers = (request: Request, response: Response) => {
-    const users = userService.getUsers();
+  getUsers = async (request: Request, response: Response) => {
+    const users = await userService.getUsers();
     response.send(users);
   };
-  createUser = (request: Request, response: Response) => {
+  createUser = async (request: Request, response: Response) => {
     const { name, idade } = request.body;
     const newUser = { name, idade };
-    const savedUser = userService.createUsers(newUser);
+    const savedUser = await userService.createUsers(newUser);
 
     response.status(201).send(savedUser);
   };
-  deleteUser = (request: Request, response: Response) => {
+  deleteUser = async (request: Request, response: Response) => {
     const { id } = request.params;
-    userService.deleteUser(parseInt(id));
+    await userService.deleteUser(parseInt(id));
     response.sendStatus(200);
   };
-  getUserById = (request: Request, response: Response) => {
+  getUserById = async (request: Request, response: Response) => {
     const { id } = request.params;
-    const user = userService.getUserById(Number(id));
+    const user = await userService.getUserById(Number(id));
 
     response.status(200).send(user);
   };

@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    image: mysql:8.0.34
+    volumes:
+      - ./config/database/db-data:/var/lib/mysql
+      - ./config/database/01-init-local-databases.sql:/docker-entrypoint-initdb.d/01-init-local-databases.sql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+    healthcheck:
+      test: 'mysqladmin ping --silent'
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    command:
+      - mysqld
+      - '--character-set-server=utf8mb4'
+      - '--skip-character-set-client-handshake'
+      - '--collation-server=utf8mb4_unicode_ci'
+      - '--default-time-zone=+00:00'

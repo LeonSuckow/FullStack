@@ -1,25 +1,28 @@
 import { ResourceNotFoundError } from "../errors/resource-not-found-error";
-import userRepository from "./user-reposityory";
+import userRepository from "./user-repository";
 
 class UserService {
-  getUsers = () => {
+
+  getUsers = async () => {
     return userRepository.getUsers();
   };
-  createUsers = (newUser: { name: string; idade: number }) => {
+
+  createUsers = async (newUser: { name: string; idade: number }) => {
     const savedUser = userRepository.createUsers(newUser);
 
     return savedUser;
   };
 
-  deleteUser = (id: number) => {
-    const user = this.getUserById(id);
+  deleteUser = async (id: number) => {
+    const user = await this.getUserById(id);
     if (!user) {
       throw new ResourceNotFoundError();
     }
 
-    userRepository.deleteUser(id);
+    await userRepository.deleteUser(id);
   };
-  getUserById = (id: number) => {
+
+  getUserById = async (id: number) => {
     return userRepository.getUserById(id);
   };
 }
